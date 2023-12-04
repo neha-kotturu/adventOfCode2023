@@ -1,17 +1,33 @@
 def calibrationSum(input):
+    numAlpha = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
     line = input.split("\n")
     digits = ""
     allDigits = []
     for element in line:
         digits = ""
+        countI = 0
         for i in element:
             if i.isdigit():
                 digits += i
+            else:
+                countNum = 1
+                for num in numAlpha:
+                    potentialNum = "" 
+                    for j in range(len(num)):
+                        if countI+j < len(element):
+                            potentialNum += element[countI+j]
+                    if potentialNum == num:
+                        digits += str(countNum)
+                        break
+                    countNum+=1
+            countI += 1
         if len(digits) == 1: 
             allDigits.append((int)(digits+digits))
         else:
             allDigits.append((int)(digits[0] + digits[-1]))
     return sum(allDigits)
+
+
 
 input = """cmpptgjc3qhcjxcbcqgqkxhrms
 9sixonefour
@@ -1013,6 +1029,5 @@ xone44
 8gqggmssjgjfive6gvgtqhhxpmzmzrone
 two17nxbvqqdgcbjhsmdbdclnkzgbzjmcsfgnine2
 sixeightfive3sdtwo"""
-
 
 print(calibrationSum(input))
